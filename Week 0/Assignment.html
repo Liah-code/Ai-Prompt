@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Safe AI Prompt with OpenRouter</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", Arial, sans-serif;
+        background: linear-gradient(135deg, #eef2f3, #d9e2ec);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        padding: 20px;
+        color: #333;
+      }
+
+      .container {
+        background: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 600px;
+        padding: 30px;
+        text-align: center;
+        transition: all 0.3s ease-in-out;
+      }
+
+      .container:hover {
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+        color: #222;
+      }
+
+      p {
+        font-size: 0.95rem;
+        color: #666;
+        margin-bottom: 20px;
+      }
+
+      textarea {
+        width: 100%;
+        resize: none;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 12px;
+        font-size: 1rem;
+        font-family: inherit;
+        transition: border-color 0.2s;
+      }
+
+      textarea:focus {
+        outline: none;
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+      }
+      button {
+        width: 100%;
+        background: #3b82f6;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        padding: 12px;
+        font-size: 1rem;
+        margin-top: 15px;
+        cursor: pointer;
+        transition: background 0.3s, transform 0.1s;
+      }
+
+      button:hover {
+        background: #2563eb;
+      }
+
+      button:active {
+        transform: scale(0.98);
+      }
+      #response {
+        margin-top: 25px;
+        padding: 20px;
+        border-radius: 10px;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        min-height: 120px;
+        text-align: left;
+        font-size: 0.95rem;
+        white-space: pre-wrap;
+        color: #333;
+      }
+      #status {
+        margin-top: 10px;
+        font-size: 0.85rem;
+        color: #666;
+      }
+      footer {
+        margin-top: 30px;
+        font-size: 0.8rem;
+        color: #aaa;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>🤖 Ava AI</h2>
+      <p>
+        Powered by <strong>OpenRouter</strong> — your input and output are
+        moderated for safety.
+      </p>
+
+      <textarea
+        id="userPrompt"
+        rows="4"
+        placeholder="Enter your prompt here..."
+      ></textarea>
+
+      <button id="sendBtn">Generate Response</button>
+
+      <div id="status"></div>
+      <div id="response"></div>
+
+      <footer>© 2025 Safe AI Interface</footer>
+    </div>
+
+    <script src="Assignment.js"></script>
+  </body>
+</html>
