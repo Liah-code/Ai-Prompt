@@ -1,6 +1,6 @@
 const API_URL = "https://openrouter.ai/api/v1/chat/completions";
       const OPENROUTER_API_KEY =
-        "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";
+        "";
 
       function isContentUnsafe(text) {
         const bannedWords = [
@@ -35,7 +35,7 @@ const API_URL = "https://openrouter.ai/api/v1/chat/completions";
             {
               method: "POST",
               headers: {
-                Authorization: `Bearer ${"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"}`,
+                Authorization: `Bearer ${""}`,
 
                 "Content-Type": "application/json",
               },
