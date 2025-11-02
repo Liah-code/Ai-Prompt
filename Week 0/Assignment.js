@@ -1,81 +1,87 @@
-const API_URL = "https://openrouter.ai/api/v1/chat/completions";
-      const OPENROUTER_API_KEY =
-        "";
+ const BASE_URL = "https://openrouter.ai/api/v1";
+      const MODEL = "minimax/minimax-m2:free";
+
+      let API_KEY = localStorage.getItem("userKey");
+
+      const modal = document.getElementById("apiKeyModal");
+      const saveKeyBtn = document.getElementById("saveKeyBtn");
+
+
+      if (!API_KEY) {
+        modal.style.display = "flex";
+      }
+
+      saveKeyBtn.addEventListener("click", () => {
+        const keyInput = document.getElementById("apiKeyInput").value.trim();
+        if (!keyInput) {
+          alert("Please enter a valid API key.");
+          return;
+        }
+        localStorage.setItem("userKey", keyInput);
+        API_KEY = keyInput;
+        modal.style.display = "none";
+      });
 
       function isContentUnsafe(text) {
-        const bannedWords = [
-          "kill",
-          "suicide",
-          "hate",
-          "terrorism",
-          "explicit",
-          "violence",
-          "abuse",
-          "self-harm",
-        ];
+        const bannedWords = ["kill", "suicide", "hate", "terrorism", "explicit", "violence", "abuse", "self-harm"];
         const lower = text.toLowerCase();
-        return bannedWords.some((word) => lower.includes(word));
+        return bannedWords.some(word => lower.includes(word));
       }
 
       async function sendToAI(userPrompt) {
-        const responseBox = document.getElementById("response");
+        const statusBox = document.getElementById("status");
+        const conversations = document.getElementById("conversations");
 
         if (isContentUnsafe(userPrompt)) {
-          responseBox.textContent =
-            "⚠️ Input blocked due to unsafe or disallowed content.";
+          alert("⚠️ Input blocked due to unsafe or disallowed content.");
           return;
         }
 
-        responseBox.textContent = "⏳ Generating response...";
+        statusBox.textContent = "⏳ Generating response...";
 
         try {
-
-          const response = await fetch(
-            "https://openrouter.ai/api/v1/chat/completions",
-            {
-              method: "POST",
-              headers: {
-                Authorization: `Bearer ${""}`,
-
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                model: "minimax/minimax-m2:free",
-                messages: [
-                  {
-                    role: "system",
-                    content:
-                      "You are a helpful and safe assistant. Refuse unsafe, harmful, or illegal requests.",
-                  },
-                  {
-                    role: "user",
-                    content: userPrompt,
-                  },
-                ],
-              }),
-            }
-          );
+          const response = await fetch(`${BASE_URL}/chat/completions`, {
+            method: "POST",
+            headers: {
+              "Authorization": `Bearer ${API_KEY}`,
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              model: MODEL,
+              messages: [
+                { role: "system", content: "You are a helpful and safe assistant." },
+                { role: "user", content: userPrompt }
+              ]
+            })
+          });
 
           const data = await response.json();
 
-          if (!response.ok) {
-            throw new Error(data.error?.message || "API request failed.");
-          }
+          if (!response.ok) throw new Error(data.error?.message || "API request failed.");
 
-          const aiOutput =
-            data.choices?.[0]?.message?.content?.trim() ||
-            "No response received.";
-
-
+          const aiOutput = data.choices?.[0]?.message?.content?.trim() || "No response received.";
           if (isContentUnsafe(aiOutput)) {
-            responseBox.textContent =
-              "⚠️ Output blocked due to unsafe content.";
+            alert("⚠️ Output blocked due to unsafe content.");
             return;
           }
 
-          responseBox.textContent = "🤖 " + aiOutput;
+         
+          const chatDiv = document.createElement("div");
+          chatDiv.className = "chat-box";
+          chatDiv.innerHTML = `
+            <div class="chat-user">🧍 You:</div>
+            <div>${userPrompt}</div>
+            <hr />
+            <div class="chat-ai">🤖 Ava AI:<br>${aiOutput}</div>
+          `;
+
+          conversations.prepend(chatDiv);
+
+          statusBox.textContent = "";
+
         } catch (err) {
-          responseBox.textContent = "❌ Error: " + err.message;
+          console.error(err);
+          statusBox.textContent = "❌ Error: " + err.message;
         }
       }
 
