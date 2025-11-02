@@ -69,14 +69,14 @@
           const chatDiv = document.createElement("div");
           chatDiv.className = "chat-box";
           chatDiv.innerHTML = `
-            <div class="chat-user">🧍 You:</div>
+            <div class="chat-user"> You:</div>
             <div>${userPrompt}</div>
             <hr />
             <div class="chat-ai">🤖 Ava AI:<br>${aiOutput}</div>
           `;
 
           conversations.prepend(chatDiv);
-
+          
           statusBox.textContent = "";
 
         } catch (err) {
@@ -86,10 +86,15 @@
       }
 
       document.getElementById("sendBtn").addEventListener("click", () => {
-        const userPrompt = document.getElementById("userPrompt").value.trim();
-        if (!userPrompt) {
-          alert("Please enter a prompt.");
-          return;
-        }
-        sendToAI(userPrompt);
-      });
+  const inputField = document.getElementById("userPrompt");
+  const userPrompt = inputField.value.trim();
+
+  if (!userPrompt) {
+    alert("Please enter a prompt.");
+    return;
+  }
+
+  sendToAI(userPrompt);
+
+  inputField.value = "";
+});
