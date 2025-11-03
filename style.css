@@ -184,6 +184,14 @@ button:hover {
 .chat-text {
   white-space: pre-wrap;
 }
+#conversations {
+  display: flex;
+  flex-direction: column; /* ✅ NOT column-reverse */
+  overflow-y: auto;
+  height: 80vh; /* or whatever you’re using */
+  padding: 1rem;
+  gap: 10px;
+}
 
 @keyframes fadeInChat {
   from {
