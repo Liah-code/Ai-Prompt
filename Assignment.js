@@ -42,7 +42,7 @@ async function sendToAI(userPrompt) {
   const conversations = document.getElementById("conversations");
 
   if (isContentUnsafe(userPrompt)) {
-    alert("⚠️ Input blocked due to unsafe or disallowed content.");
+    alert("⚠️ Your input/output violated the moderation policy.");
     return;
   }
 
