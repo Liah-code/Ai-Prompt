@@ -1,5 +1,6 @@
  const BASE_URL = "https://openrouter.ai/api/v1";
-      const MODEL = "google/gemini-2.5-flash";
+      const MODEL = "openai/gpt-3.5-turbo";
+
 
       let API_KEY = localStorage.getItem("userKey");
 
@@ -47,12 +48,16 @@
               "Content-Type": "application/json"
             },
             body: JSON.stringify({
-              model: MODEL,
-              messages: [
-                { role: "system", content: "You are a helpful and safe assistant." },
-                { role: "user", content: userPrompt }
-              ]
-            })
+          model: MODEL,
+          messages: [
+            { 
+              role: "system", 
+              content: "You are Ava, a concise and friendly AI chat assistant. Keep responses clear, natural, and conversational — avoid long textbook explanations unless the user asks for them." 
+            },
+            { role: "user", content: userPrompt }
+          ]
+        })
+
           });
 
           const data = await response.json();
@@ -66,16 +71,19 @@
           }
 
          
-          const chatDiv = document.createElement("div");
-          chatDiv.className = "chat-box";
-          chatDiv.innerHTML = `
-            <div class="chat-user"> You:</div>
-            <div>${userPrompt}</div>
-            <hr />
-            <div class="chat-ai">🤖 Ava AI:<br>${aiOutput}</div>
-          `;
+
+        const userDiv = document.createElement("div");
+        userDiv.className = "chat-bubble user-bubble";
+        userDiv.innerHTML = `<div class="chat-text">${userPrompt}</div>`;
+        conversations.prepend(userDiv);
+
+
+        const aiDiv = document.createElement("div");
+        aiDiv.className = "chat-bubble ai-bubble";
+        aiDiv.innerHTML = `<div class="chat-text">🤖 ${aiOutput}</div>`;
+        conversations.prepend(aiDiv);
+
         
-          conversations.prepend(chatDiv);
           
           statusBox.textContent = "";
 
