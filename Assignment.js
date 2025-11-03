@@ -120,11 +120,12 @@ document.getElementById("sendBtn").addEventListener("click", () => {
   inputField.value = "";
 });
 
-document
-  .getElementById("userPrompt")
-  .addEventListener("keypress", function (e) {
+document.getElementById("userPrompt").addEventListener("keypress", function (e) {
+  if (window.innerWidth > 1200) {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       document.getElementById("sendBtn").click();
     }
-  });
+  }
+
+});
