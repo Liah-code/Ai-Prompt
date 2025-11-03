@@ -1,5 +1,5 @@
  const BASE_URL = "https://openrouter.ai/api/v1";
-      const MODEL = "minimax/minimax-m2:free";
+      const MODEL = "google/gemini-2.5-flash";
 
       let API_KEY = localStorage.getItem("userKey");
 
@@ -74,7 +74,7 @@
             <hr />
             <div class="chat-ai">🤖 Ava AI:<br>${aiOutput}</div>
           `;
-
+        
           conversations.prepend(chatDiv);
           
           statusBox.textContent = "";
@@ -85,16 +85,21 @@
         }
       }
 
-      document.getElementById("sendBtn").addEventListener("click", () => {
-  const inputField = document.getElementById("userPrompt");
-  const userPrompt = inputField.value.trim();
+     document.getElementById("sendBtn").addEventListener("click", () => {
+        const inputField = document.getElementById("userPrompt");
+        const userPrompt = inputField.value.trim();
+        const suggestionsBox = document.querySelector(".suggestions");
+        const chatArea = document.getElementById("conversations");
 
-  if (!userPrompt) {
-    alert("Please enter a prompt.");
-    return;
-  }
+        if (!userPrompt) {
+          alert("Please enter a prompt.");
+          return;
+        }
 
-  sendToAI(userPrompt);
+        if (chatArea.children.length === 0 && suggestionsBox) {
+          suggestionsBox.remove();
+        }
 
-  inputField.value = "";
+        sendToAI(userPrompt);
+        inputField.value = "";
 });

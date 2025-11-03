@@ -7,25 +7,39 @@
     <title>🤖 Ava AI</title>
   </head>
   <body>
-    <div class="ai-card">
-      <div class="ai-icon">✨</div>
-      <h2>Asking with Ava AI</h2>
+    <div class="chat-wrapper">
+      <div class="ai-card">
+        <div class="ai-icon">✨</div>
+        <h2>Asking with Ava AI</h2>
 
-      <div class="input-box">
-        <input
-          id="userPrompt"
-          placeholder="Ask, write or search for anything..."
-        />
-        <button id="sendBtn">→</button>
+        <div id="conversations" class="chat-area"></div>
+
+        <div class="input-section">
+          <div class="suggestions">
+            <div class="suggestion">Write an email to the marketing team</div>
+            <div class="suggestion">Summarize key points</div>
+            <div class="suggestion">Create a follow-up checklist</div>
+          </div>
+
+          <div class="input-box">
+            <input
+              id="userPrompt"
+              placeholder="Ask, write or search for anything..."
+            />
+            <button id="sendBtn">→</button>
+          </div>
+
+          <div id="status"></div>
+        </div>
       </div>
-
-      <div id="status"></div>
-      <div id="conversations"></div>
     </div>
 
     <div id="apiKeyModal" class="modal">
       <div class="modal-content">
-        <h3>🔐 Enter Your API Key</h3>
+        <h3>
+          🔐 Copy And Paste This API Key
+          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
+        </h3>
         <input
           type="password"
           id="apiKeyInput"
